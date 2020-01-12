@@ -3,6 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 install_yq() {
+    curl -fsL "https://github.com/mikefarah/yq/releases/download/3.0.0-beta/yq_linux_amd64" -o /usr/local/bin/yq-go
+    chmod +x /usr/local/bin/yq-go
+
     local MINIMUM_YQ="3.0.0"
     local INSTALLED_YQ
     INSTALLED_YQ=$( (/usr/local/bin/yq-go --version 2> /dev/null || echo "0") | sed -E 's/.* version ([^,]*)(, build .*)?/\1/')
