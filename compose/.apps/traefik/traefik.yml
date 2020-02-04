@@ -1,0 +1,56 @@
+services:
+  traefik:
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=${TRAEFIK_EXPOSED_DEFAULT}"
+      - '--providers.docker.defaultRule=Host(`{{ normalize .Name | replace ".compose" "" }}`)'
+      # - --providers.docker.defaultRule=Host(`example.com`) && PathPrefix(`/{{ ( .Name | trimPrefix (normalize (index .Labels "com.docker.stack.namespace") ) | trimPrefix "-" )  }}`)
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+        # Enable a http challenge named "myhttpchallenge"
+      - "--certificatesresolvers.myhttpchallenge.acme.httpchallenge=true"
+      # Tell it to use our predefined entrypoint named "web"
+      - "--certificatesresolvers.myhttpchallenge.acme.httpchallenge.entrypoint=web"
+      # The email to provide to let's encrypt
+      - "--certificatesresolvers.myhttpchallenge.acme.email=${TRAEFIK_ACME_EMAIL}"
+      #- "--certificatesresolvers.myhttpchallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myhttpchallenge.acme.storage=/letsencrypt/acme.json"
+      # Previous commands
+      # - --api
+      # - --defaultEntryPoints=${TRAEFIK_DEFAULT_ENTRYPOINTS}
+      # - --docker
+      # - --docker.watch
+      # - --docker.exposedByDefault=${TRAEFIK_EXPOSED_DEFAULT}
+      # - --docker.domain=${TRAEFIK_DOMAIN}
+      # - --entryPoints=Name:http Address::${TRAEFIK_PORT_80} Compress:true Redirect.EntryPoint:https
+      # - --entryPoints=Name:https Address::${TRAEFIK_PORT_443} Compress:true TLS
+      # - --acme.entrypoint=https
+      # - --acme.storage=acme.json
+      # - --acme.onHostRule=${TRAEFIK_ACME_ENABLE}
+      # - --acme=${TRAEFIK_ACME_ENABLE}
+      # - --acme.email=${TRAEFIK_ACME_EMAIL}
+      # - ${TRAEFIK_ACME_CHALLENGE}
+      # - ${TRAEFIK_ACME_CHALLENGE_PROVIDER}
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - /etc/localtime:/etc/localtime:ro
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ${DOCKERSHAREDDIR}:/shared
+    cap_add:
+      - NET_ADMIN
+  whoami:
+    image: "containous/whoami"
+    container_name: "simple-service"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=myhttpchallenge"

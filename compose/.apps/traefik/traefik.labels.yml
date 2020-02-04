@@ -1,0 +1,10 @@
+services:
+  traefik:
+    labels:
+      com.dockstarter.appinfo.description: "A reverse proxy / load balancer that's dynamic, automatic, and uses LetsEncrypt."
+      com.dockstarter.appinfo.nicename: "Traefik"
+      com.dockstarter.appvars.traefik_enabled: "false"
+      com.dockstarter.appvars.traefik_network_mode: ""
+      com.dockstarter.appvars.traefik_port_8080: "8080"
+      com.dockstarter.appvars.traefik_port_443: "443"
+      com.dockstarter.appvars.traefik_port_80: "80"
