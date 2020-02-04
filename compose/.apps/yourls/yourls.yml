@@ -1,0 +1,28 @@
+services:
+  yourls:
+    container_name: yourls
+    environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      # - YOURLS_DB_HOST=... (defaults to the IP and port of the linked mysql container)
+      # - YOURLS_DB_USER=... (defaults to "root")
+      - YOURLS_DB_PASS=${MARIADB_MYSQL_ROOT_PASSWORD}
+      # - YOURLS_DB_NAME=... (defaults to "yourls")
+      - YOURLS_SITE=${YOURLS_SITE_URL}
+      - YOURLS_USER=${YOURLS_USERNAME}
+      - YOURLS_PASS=${YOURLS_PASSWORD}
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DOCKERLOGGING_MAXFILE}
+        max-size: ${DOCKERLOGGING_MAXSIZE}
+    labels:
+      - "traefik.http.services.yourls-compose.loadbalancer.server.port=${YOURLS_PORT_80}"
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${DOCKERCONFDIR}/yourls:/config
+      - ${DOCKERSHAREDDIR}:/shared
+    depends_on:
+      - linuxserver/mariadb
