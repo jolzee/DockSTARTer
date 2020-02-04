@@ -11,7 +11,7 @@ services:
         max-file: ${DOCKERLOGGING_MAXFILE}
         max-size: ${DOCKERLOGGING_MAXSIZE}
     labels:
-      - "traefik.http.services.deluge-compose.loadbalancer.server.port=${DELUGE_PORT_58846}"
+      - "traefik.http.services.deluge-compose.loadbalancer.server.port=${DELUGE_PORT_8112}"
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
