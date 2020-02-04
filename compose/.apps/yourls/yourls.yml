@@ -25,4 +25,4 @@ services:
       - ${DOCKERCONFDIR}/yourls:/config
       - ${DOCKERSHAREDDIR}:/shared
     depends_on:
-      - linuxserver/mariadb
+      - mariadb
