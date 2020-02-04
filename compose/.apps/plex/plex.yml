@@ -14,8 +14,7 @@ services:
         max-size: ${DOCKERLOGGING_MAXSIZE}
     restart: unless-stopped
     labels:
-      - "traefik.enable=true"
-      - "traefik.port=32400"
+      - "traefik.http.services.plex-compose.loadbalancer.server.port=32400"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKERCONFDIR}/plex:/config
