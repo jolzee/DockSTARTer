@@ -35,7 +35,7 @@ You may choose to rely on DockSTARTer for various changes to your Docker system,
 
 ```bash
 sudo apt-get install curl git
-bash -c "$(curl -fsSL https://get.dockstarter.com)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jolzee/DockSTARTer/master/main.sh)"
 sudo reboot
 ```
 
@@ -46,7 +46,7 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get install curl git
 bash -c "$(curl -fsSL https://get.docker.com)"
-bash -c "$(curl -fsSL https://get.dockstarter.com)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jolzee/DockSTARTer/master/main.sh)"
 sudo reboot
 ```
 
@@ -54,7 +54,7 @@ sudo reboot
 
 ```bash
 sudo dnf install curl git
-bash -c "$(curl -fsSL https://get.dockstarter.com)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jolzee/DockSTARTer/master/main.sh)"
 sudo reboot
 ```
 
@@ -62,7 +62,7 @@ sudo reboot
 
 ```bash
 sudo yum install curl git
-bash -c "$(curl -fsSL https://get.dockstarter.com)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jolzee/DockSTARTer/master/main.sh)"
 sudo reboot
 ```
 
@@ -78,7 +78,7 @@ sudo dnf install curl git
 sudo yum install curl git
 
 ## NOTE: Do not sudo the next line.
-git clone https://github.com/GhostWriters/DockSTARTer "/home/${USER}/.docker"
+git clone https://github.com/jolzee/DockSTARTer.git "/home/${USER}/.docker"
 sudo bash /home/${USER}/.docker/main.sh -i
 sudo reboot
 ```
