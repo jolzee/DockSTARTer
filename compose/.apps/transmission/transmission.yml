@@ -5,6 +5,8 @@ services:
       - PGID=${PGID}
       - PUID=${PUID}
       - TZ=${TZ}
+      - USER=${COMMON_USERNAME} #optional
+      - PASS=${COMMON_PASSWORD} #optional
     logging:
       driver: json-file
       options:
