@@ -3,7 +3,9 @@ services:
     labels:
       com.dockstarter.appinfo.description: "YOURLS - run Your Own URL Shortener."
       com.dockstarter.appinfo.nicename: "Yourls"
+      com.dockstarter.appvars.yourls_enabled: "false"
       com.dockstarter.appvars.yourls_network_mode: ""
       com.dockstarter.appvars.yourls_site_url: ""
       com.dockstarter.appvars.yourls_username: ""
       com.dockstarter.appvars.yourls_password: ""
+      com.dockstarter.appvars.yourls_port_80: "80"
