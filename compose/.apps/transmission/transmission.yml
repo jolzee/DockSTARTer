@@ -11,6 +11,8 @@ services:
         max-file: ${DOCKERLOGGING_MAXFILE}
         max-size: ${DOCKERLOGGING_MAXSIZE}
     restart: unless-stopped
+    labels:
+      - "traefik.http.services.transmission-compose.loadbalancer.server.port=9091"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${DOCKERCONFDIR}/transmission:/config
