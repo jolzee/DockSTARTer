@@ -7,7 +7,7 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=${TRAEFIK_EXPOSED_DEFAULT}"
-      - '--providers.docker.defaultRule=Host(`{{ normalize .Name | replace ".compose" "" }}`)'
+      - '--providers.docker.defaultRule=Host(`{{ normalize .Name | replace "-compose" "" }}`).${DOCKERHOSTNAME}'
       # - --providers.docker.defaultRule=Host(`example.com`) && PathPrefix(`/{{ ( .Name | trimPrefix (normalize (index .Labels "com.docker.stack.namespace") ) | trimPrefix "-" )  }}`)
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
